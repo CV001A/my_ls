@@ -1,4 +1,3 @@
-use std::fs::File;
 use std::fs;
 
 fn main() {
@@ -9,9 +8,13 @@ fn main() {
     // 3) get sub files
     let enums = directory.enumerate();
     let mut file_names = Vec::new();
-    enums.for_each(|x| file_names.push(x.1.unwrap().name));
+    enums.for_each(|x| {
+        let file_name = x.1.unwrap().file_name();
+        file_names.push(file_name.into_string().unwrap());
+    });
     // 4) etl handle
     // 5) output message
-    println!("{}", file_names);
-
+    for name in file_names {
+        println!("{}", name);
+    }
 }
